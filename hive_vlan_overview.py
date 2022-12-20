@@ -45,7 +45,7 @@ class ArgParser(object):
             type=str,
             default='205',
             dest='hive_id',
-            help='The hive to query for data (default: 205)'
+            help='The hive to query, supports "all" for all hives and "210,213" for a subset of hives (default: 205)'
         )
 
     def parseArgs(self):
@@ -180,12 +180,13 @@ if __name__ == '__main__':
 
     # Output sorted by vlan_id
     elif args['sort_by'] == 'vlan_id':
+        print(all_vlans.keys())
         for hive, vlans in all_vlans.items():
             t = PrettyTable()
             t.field_names = [f"Hive{hive} VLAN_Ids", "VLAN_Names"]
             for vid, names in vlans.items():
                 t.add_row([vid, ','.join(names)])
-        print(t)
+            print(t)
 
     else:
         print("No output formatter found!")
